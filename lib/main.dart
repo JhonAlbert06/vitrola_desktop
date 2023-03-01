@@ -53,24 +53,27 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: ListView.builder(
-          controller: _controller,
-          scrollDirection: Axis.horizontal,
-          itemCount: songs.length,
-          itemBuilder: (context, index) {
-            return ImageCard(
-              painter: NetworkImage(
-                  imageUrl), //AssetImage('assets/images/${index + 1}.jpg'),
-              contentDescription: 'Imagen ${index + 1}',
-              title: 'Título ${index + 1}',
-              song: songs[index],
-              onClick: () {
-                // Aquí puedes definir lo que quieres hacer al pulsar cada elemento
-                print('Has pulsado el elemento ${index + 1}');
-              },
-            );
-          },
+        padding: const EdgeInsets.all(150.0),
+        child: Container(
+          height: 600,
+          child: ListView.builder(
+            controller: _controller,
+            scrollDirection: Axis.horizontal,
+            itemCount: songs.length,
+            itemBuilder: (context, index) {
+              return ImageCard(
+                painter: NetworkImage(
+                    imageUrl), //AssetImage('assets/images/${index + 1}.jpg'),
+                contentDescription: 'Imagen ${index + 1}',
+                title: 'Título ${index + 1}',
+                song: songs[index],
+                onClick: () {
+                  // Aquí puedes definir lo que quieres hacer al pulsar cada elemento
+                  print('Has pulsado el elemento ${index + 1}');
+                },
+              );
+            },
+          ),
         ),
       ),
     );
