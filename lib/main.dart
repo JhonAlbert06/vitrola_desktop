@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'componentes/ImageCard.dart';
+import 'model/SongDto.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -10,11 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Vitrola Desktop',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Vitrola Desktop'),
     );
   }
 }
@@ -29,39 +32,47 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final imageUrl =
+      'https://th.bing.com/th/id/R.677055a5d878a0bf721536ca6e453dc1?rik=eIgJMuFQiW8UtA&pid=ImgRaw&r=0';
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final List<SongDto> songs = [
+    SongDto(artist: 'Artista 1', genre: 'Género 1'),
+    SongDto(artist: 'Artista 2', genre: 'Género 2'),
+    SongDto(artist: 'Artista 3', genre: 'Género 3'),
+    SongDto(artist: 'Artista 4', genre: 'Género 4'),
+    SongDto(artist: 'Artista 5', genre: 'Género 5'),
+  ];
+
+  final ScrollController _controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ListView.builder(
+          controller: _controller,
+          scrollDirection: Axis.horizontal,
+          itemCount: songs.length,
+          itemBuilder: (context, index) {
+            return ImageCard(
+              painter: NetworkImage(
+                  imageUrl), //AssetImage('assets/images/${index + 1}.jpg'),
+              contentDescription: 'Imagen ${index + 1}',
+              title: 'Título ${index + 1}',
+              song: songs[index],
+              onClick: () {
+                // Aquí puedes definir lo que quieres hacer al pulsar cada elemento
+                print('Has pulsado el elemento ${index + 1}');
+              },
+            );
+          },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
