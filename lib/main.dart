@@ -56,11 +56,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: songs.length,
                 itemBuilder: (context, index) {
                   return ImageCard(
-                      painter: NetworkImage(imageUrl),// La imagen por assest
+                      painter:
+                          AssetImage('assets/images/${songs[index].name}.jpeg'),
                       contentDescription: "contentDescription",
                       title: songs[index].name,
                       song: songs[index],
-                      onClick: () => _api.createSong(songs[index].name, songs[index].genre, songs[index].length, songs[index].artist));
+                      onClick: () => _api.createSong(
+                          songs[index].name,
+                          songs[index].genre,
+                          songs[index].length,
+                          songs[index].artist));
                 },
               );
             } else if (snapshot.hasError) {
