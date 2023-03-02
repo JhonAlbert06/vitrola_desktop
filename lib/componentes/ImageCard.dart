@@ -9,7 +9,8 @@ class ImageCard extends StatelessWidget {
   final SongDto song;
   final VoidCallback onClick;
 
-  ImageCard({
+  const ImageCard({
+    super.key,
     required this.painter,
     required this.contentDescription,
     required this.title,

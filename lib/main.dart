@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'componentes/ImageCard.dart';
-import 'model/SongDto.dart';
+import 'package:vitrolla_desktop/componentes/ImageCard.dart';
+import 'package:vitrolla_desktop/model/SongDto.dart';
+import 'package:vitrolla_desktop/songs_api.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,15 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final imageUrl =
       'https://th.bing.com/th/id/R.677055a5d878a0bf721536ca6e453dc1?rik=eIgJMuFQiW8UtA&pid=ImgRaw&r=0';
 
-  final List<SongDto> songs = [
-    SongDto(artist: 'Artista 1', genre: 'Género 1'),
-    SongDto(artist: 'Artista 2', genre: 'Género 2'),
-    SongDto(artist: 'Artista 3', genre: 'Género 3'),
-    SongDto(artist: 'Artista 4', genre: 'Género 4'),
-    SongDto(artist: 'Artista 5', genre: 'Género 5'),
-  ];
-
-  final ScrollController _controller = ScrollController();
+  final SongsApi _api = SongsApi();
 
   @override
   Widget build(BuildContext context) {
@@ -54,26 +46,29 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(150.0),
-        child: Container(
-          height: 600,
-          child: ListView.builder(
-            controller: _controller,
-            scrollDirection: Axis.horizontal,
-            itemCount: songs.length,
-            itemBuilder: (context, index) {
-              return ImageCard(
-                painter: NetworkImage(
-                    imageUrl), //AssetImage('assets/images/${index + 1}.jpg'),
-                contentDescription: 'Imagen ${index + 1}',
-                title: 'Título ${index + 1}',
-                song: songs[index],
-                onClick: () {
-                  // Aquí puedes definir lo que quieres hacer al pulsar cada elemento
-                  print('Has pulsado el elemento ${index + 1}');
+        child: FutureBuilder<List<SongDto>>(
+          future: _api.getSongs(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final List<SongDto> songs = snapshot.data!;
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: songs.length,
+                itemBuilder: (context, index) {
+                  return ImageCard(
+                      painter: NetworkImage(imageUrl),
+                      contentDescription: "contentDescription",
+                      title: songs[index].name,
+                      song: songs[index],
+                      onClick: () => print("object"));
                 },
               );
-            },
-          ),
+            } else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
+            }
+
+            return const CircularProgressIndicator();
+          },
         ),
       ),
     );
