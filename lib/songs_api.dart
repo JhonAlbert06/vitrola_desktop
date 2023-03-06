@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'model/SongDto.dart';
 
 class SongsApi {
-  static const baseURL = 'http://172.16.19.213:8000';
+  static const baseURL = 'http://192.168.1.20:8000';
 
   Future<List<SongDto>> getSongs() async {
     final response = await http.get(Uri.parse('$baseURL/Songs'));
