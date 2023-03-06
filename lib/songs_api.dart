@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import 'model/SongDto.dart';
@@ -33,7 +34,9 @@ class SongsApi {
     );
 
     if (response.statusCode == 201) {
-      print('Song created successfully');
+      if (kDebugMode) {
+        print('Song created successfully');
+      }
     } else {
       throw Exception('Failed to create song');
     }
