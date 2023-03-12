@@ -28,8 +28,8 @@ class ImageCard extends StatelessWidget {
       child: InkWell(
         onTap: onClick,
         child: Container(
-          height: 400.0,
-          width: 800.0,
+          height: 600.0,
+          width: 400.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15.0),
             image: DecorationImage(

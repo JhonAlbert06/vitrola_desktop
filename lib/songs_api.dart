@@ -18,6 +18,16 @@ class SongsApi {
     }
   }
 
+  Future<List<SongDto>> getSongsList() async {
+    final response = await http.get(Uri.parse('$baseURL/Songs/List'));
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      return List<SongDto>.from(jsonData.map((x) => SongDto.fromMap(x)));
+    } else {
+      throw Exception('Failed to load songs');
+    }
+  }
+
   Future<void> createSong(
       String name, String genre, String length, String artist) async {
     final response = await http.post(
