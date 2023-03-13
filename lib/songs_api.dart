@@ -1,12 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import 'model/SongDto.dart';
 
 class SongsApi {
-  static const baseURL = 'http://192.168.1.20:8000';
+  static const baseURL = 'http://172.16.19.213:8000';
 
   Future<List<SongDto>> getSongs() async {
     final response = await http.get(Uri.parse('$baseURL/Songs'));
@@ -28,8 +27,8 @@ class SongsApi {
     }
   }
 
-  Future<void> createSong(
-      String name, String genre, String length, String artist) async {
+  Future<void> createSong(String name, String genre, String length,
+      String artist, dynamic id) async {
     final response = await http.post(
       Uri.parse('$baseURL/Songs/List'),
       headers: <String, String>{
@@ -43,11 +42,10 @@ class SongsApi {
       }),
     );
 
-    if (response.statusCode == 201) {
-      if (kDebugMode) {
-        print('Song created successfully');
-      }
+    if (response.statusCode == 200) {
+      print('Song created successfully');
     } else {
+      print(response.statusCode);
       throw Exception('Failed to create song');
     }
   }

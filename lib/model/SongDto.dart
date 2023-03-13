@@ -6,16 +6,16 @@ class SongDto {
   final String artist;
 
   SongDto({
-    this.id,
     this.name = "",
     this.genre = "",
     this.length = "",
     this.artist = "",
+    this.id,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      '_id': id,
       'name': name,
       'genre': genre,
       'length': length,
@@ -25,7 +25,7 @@ class SongDto {
 
   static SongDto fromMap(Map<String, dynamic> map) {
     return SongDto(
-      id: map['id'],
+      id: map['_id'],
       name: map['name'],
       genre: map['genre'],
       length: map['length'],
