@@ -36,7 +36,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final imageUrl =
-      'https://th.bing.com/th/id/R.677055a5d878a0bf721536ca6e453dc1?rik=eIgJMuFQiW8UtA&pid=ImgRaw&r=0';
+      "http://192.168.1.20:8000/public/images/Bohemian Rhapsody.jpeg";
 
   final SongsApi _api = SongsApi();
   final song = SongDto(
@@ -81,8 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           itemCount: songs.length,
                           itemBuilder: (context, index) {
                             return ImageCard(
-                              painter: AssetImage(
-                                  'assets/images/${songs[index].name}.jpeg'),
+                              painter: Image.network(
+                                  "http://192.168.1.20:8000/public/images/${songs[index].name}.jpeg"),
                               contentDescription: "contentDescription",
                               title: songs[index].name,
                               song: songs[index],
@@ -116,11 +116,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 250.0,
                 width: 250.0,
                 child: EnCurso(
-                  painter: AssetImage('assets/images/Bohemian Rhapsody.jpeg'),
+                  painter: Image.network(imageUrl),
                   contentDescription: 'Content description',
                   title: 'Bohemian Rhapsody',
                   artist: "Queen",
@@ -155,8 +155,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10.0),
                                   child: ImageCard2(
-                                    painter: AssetImage(
-                                        'assets/images/${songs[index].name}.jpeg'),
+                                    painter: Image.network(
+                                        "http://192.168.1.20:8000/public/images/${songs[index].name}.jpeg"),
                                     contentDescription: "contentDescription",
                                     title: songs[index].name,
                                     song: songs[index],

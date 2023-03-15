@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EnCurso extends StatelessWidget {
-  final ImageProvider painter;
+  final Image painter;
   final String contentDescription;
   final String title;
   final String artist;
@@ -31,7 +31,7 @@ class EnCurso extends StatelessWidget {
               fit: StackFit.expand,
               children: [
                 Image(
-                  image: painter,
+                  image: painter.image,
                   fit: BoxFit.cover,
                 ),
                 Padding(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../model/SongDto.dart';
 
 class ImageCard extends StatelessWidget {
-  final ImageProvider painter;
+  final Image painter;
   final String contentDescription;
   final String title;
   final SongDto song;
@@ -33,7 +33,7 @@ class ImageCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15.0),
             image: DecorationImage(
-              image: painter,
+              image: painter.image,
               fit: BoxFit.cover,
             ),
           ),
